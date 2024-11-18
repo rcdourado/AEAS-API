@@ -3,8 +3,6 @@ import requests
 import pandas as pd
 import streamlit as st
 from datetime import datetime
-from datetime import date
-from calendar import monthrange
 
 # Token de autenticação
 TOKEN = st.secrets["TOKEN"]
@@ -90,7 +88,10 @@ despesas = format_date_column(despesas, 'dataPagamento')
 
 # Definir datas padrão
 primeiro_dia_mes = hoje.replace(day=1)
-ultimo_dia_mes = hoje.replace(day=monthrange(hoje.year, hoje.month)[1])
+if hoje.month == 1 or hoje.month == 3 or hoje.month == 5 or hoje.month == 7  or hoje.month == 8  or hoje.month == 10 or hoje.month == 12:
+    ultimo_dia_mes = hoje.replace(day=31)
+else:
+    ultimo_dia_mes = hoje.replace(day=30)
 
 # Sidebar - Filtros
 st.sidebar.subheader("Filtros das Receitas")
